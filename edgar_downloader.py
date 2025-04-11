@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from enum import Enum
 
-# Define filing types available in SEC EDGAR
+# Filing types enum
 class FilingType(str, Enum):
     FORM_10K = "10-K"
     FORM_10Q = "10-Q"
@@ -27,59 +27,27 @@ class FilingType(str, Enum):
     FORM_NT10Q = "NT 10-Q"
 
 def get_filing_types():
-    """Return a list of available filing types"""
     return [filing.value for filing in FilingType]
 
 def download_edgar_filings(ticker: str, filing_type: str, years_back: int, cik: str = None):
-    """
-    Download SEC filings for a given ticker, filing type, and years back.
-    - Returns a tuple: (success_status, number_of_filings)
-    """
-    # Set the data directory
     data_dir = Path("edgar_data")
-    data_dir.mkdir(exist_ok=True)  # Ensure the data directory exists
-    
-    # Initialize downloader
-    dl = Downloader("MyCompany", "myemail@example.com", data_dir)
-    
-    # Calculate date ranges based on user input
+    data_dir.mkdir(exist_ok=True)
+
+    dl = Downloader("MyCompany", "youremail@example.com", data_dir)
+
     today = datetime.now().year
     start_year = today - years_back
-    
+
     try:
-        # Determine if we're using a ticker or CIK
-        if ticker:
-            identifier = ticker
-        elif cik:
-            identifier = cik
-        else:
-            raise ValueError("Either a ticker or CIK number must be provided.")
-        
-        # Download the filings
-        try:
-            num_downloaded = dl.get(
-                filing_type,
-                identifier,
-                after=f"{start_year}-01-01",
-                before=f"{today}-12-31",
-                download_details=True
-            )
-            print(f"Downloaded {num_downloaded} filings")
-            
-            # Find the directory where filings were downloaded
-            filing_dir = data_dir / "sec-edgar-filings" / identifier / filing_type
-            print(f"Looking for filings in: {filing_dir}")
-            
-            if not filing_dir.exists() and num_downloaded > 0:
-                print(f"Warning: .get() reported success but directory not found at {filing_dir}")
-                return False, 0
-                
-            return True, num_downloaded
-            
-        except Exception as e:
-            print(f"Error downloading filings: {str(e)}")
-            return False, 0
-    
+        identifier = cik if cik else ticker
+        num_downloaded = dl.get(
+            filing_type,
+            identifier,
+            after=f"{start_year}-01-01",
+            before=f"{today}-12-31",
+            download_details=True
+        )
+        return True, num_downloaded, data_dir
     except Exception as e:
-        print(f"Exception occurred: {str(e)}")
-        return False, 0
+        print(f"Download failed: {e}")
+        return False, 0, None
