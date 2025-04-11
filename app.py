@@ -22,25 +22,25 @@ if st.button("📥 Download ZIP"):
         ticker, cik = (None, user_input) if user_input.isdigit() else (user_input.upper(), None)
 
         with st.spinner("Fetching filings and zipping..."):
-    try:
-        success, count, data_dir = download_edgar_filings(
-            ticker=ticker,
-            cik=cik,
-            filing_type=filing_type,
-            years_back=years_back
-        )
-
-        if success and count > 0:
-            zip_path = shutil.make_archive("edgar_filings", 'zip', data_dir)
-
-            with open(zip_path, "rb") as f:
-                st.download_button(
-                    label="⬇️ Download ZIP",
-                    data=f,
-                    file_name="edgar_filings.zip",
-                    mime="application/zip"
+            try:
+                success, count, data_dir = download_edgar_filings(
+                    ticker=ticker,
+                    cik=cik,
+                    filing_type=filing_type,
+                    years_back=years_back
                 )
-        else:
-            st.error("❌ Could not fetch filings. No results or unknown error.")
-    except Exception as e:
-        st.error(f"💥 Something went wrong:\n\n`{str(e)}`")
+        
+                if success and count > 0:
+                    zip_path = shutil.make_archive("edgar_filings", 'zip', data_dir)
+        
+                    with open(zip_path, "rb") as f:
+                        st.download_button(
+                            label="⬇️ Download ZIP",
+                            data=f,
+                            file_name="edgar_filings.zip",
+                            mime="application/zip"
+                        )
+                else:
+                    st.error("❌ Could not fetch filings. No results or unknown error.")
+            except Exception as e:
+                st.error(f"💥 Something went wrong:\n\n`{str(e)}`")
