@@ -1,17 +1,16 @@
-# 📦 SEC-FILINGS Downloader
+# 📦 SEC-FILINGS DOWNLOADER
 
-This project is a simple Streamlit web app that fetches sec-files, stores them in temporary memory, and allows users to download them as a ZIP file.
+A simple Streamlit web app that dynamically fetches SEC filings, temporarily stores them in memory, and allows users to download them as a ZIP file.
 
-## 🚀 Features
+## 🚀 FEATURES
 
-- Fetches files dynamically (from Edagr-tool)
-- Temporarily stores files in memory
-- Automatically creates a ZIP file of the fetched files
-- Provides a download link for the ZIP file
+- Dynamically fetches SEC filings (via EDGAR tool)  
+- Temporarily stores files in memory  
+- Automatically compresses files into a ZIP archive  
+- Provides an easy download link for the ZIP file  
 
-## 🛠️ Tech Stack
+## 🛠️ TECH STACK
 
-- [Python](https://www.python.org/)
-- [Streamlit](https://streamlit.io/)
-- `io`, `zipfile`, and other built-in Python libraries for file handling
-
+- [Python](https://www.python.org/)  
+- [Streamlit](https://streamlit.io/)  
+- Built-in Python libraries: `io`, `zipfile`, and more for efficient file handling  
