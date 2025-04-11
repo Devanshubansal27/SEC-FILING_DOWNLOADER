@@ -15,5 +15,3 @@ This project is a simple Streamlit web app that fetches files, stores them in te
 - [Streamlit](https://streamlit.io/)
 - `io`, `zipfile`, and other built-in Python libraries for file handling
 
-## 📂 Directory Structure
-
