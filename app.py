@@ -13,7 +13,7 @@ user_input = st.text_input("Ticker or CIK").strip()
 filing_type = st.selectbox("Select Filing Type", get_filing_types())
 years_back = st.slider("Years Back", 1, 20, 5)
 
-if st.button("📥 Download ZIP"):
+if st.button("📥 Fetch Filings"):
     if not user_input:
         st.warning("⚠️ Please enter a ticker or CIK.")
     else:
