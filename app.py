@@ -4,8 +4,8 @@ import shutil
 import os
 from edgar_downloader import get_filing_types, download_edgar_filings
 
-st.set_page_config(page_title="EDGAR Filings Downloader", layout="centered")
-st.title("📦 SEC EDGAR Filings Downloader")
+st.set_page_config(page_title="SEC Filings Downloader", layout="centered")
+st.title("📦 SEC Filings Downloader")
 
 st.markdown("Enter a **Ticker** (e.g. `AAPL`) or a **CIK** (e.g. `320193`) and download filings as a ZIP.")
 
